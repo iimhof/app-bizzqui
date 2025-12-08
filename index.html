@@ -2,10 +2,20 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>BIZZqui App</title>
+    <title>BIZZqui</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Versuche die App zu öffnen
+        window.location.href = 'nachfolgeapppush://nachfolgeappush';
+        
+        // Nach 2 Sekunden zu bizzqui.com weiterleiten (wenn App nicht öffnet)
+        setTimeout(function() {
+            window.location.href = 'https://bizzqui.com';
+        }, 2000);
+    </script>
 </head>
 <body>
-    <h1>BIZZqui</h1>
-    <p>Bitte öffne die App oder lade sie aus dem App Store herunter.</p>
+    <h1>BIZZqui wird geöffnet...</h1>
+    <p>Falls die App nicht automatisch öffnet, wirst du zur Website weitergeleitet.</p>
 </body>
 </html>
