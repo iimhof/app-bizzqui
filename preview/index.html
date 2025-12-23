@@ -77,12 +77,12 @@
     </style>
     
     <script>
+    // NUR für echte Browser, NICHT für Crawler
+    if (!/bot|crawler|spider|crawling/i.test(navigator.userAgent)) {
         // Parameter aus URL extrahieren  
-        // URL format: /preview/ oder /preview/userId oder /preview/any/path/userId
         const pathSegments = window.location.pathname.split('/').filter(s => s);
         let userId = null;
         
-        // Finde preview index
         const previewIndex = pathSegments.indexOf('preview');
         if (previewIndex !== -1 && pathSegments[previewIndex + 1]) {
             userId = pathSegments[previewIndex + 1];
@@ -92,18 +92,16 @@
         console.log('UserId:', userId);
         
         if (userId) {
-            // Custom URI Scheme (funktioniert nur auf Mobile mit installierter App)
             window.location.href = `bizzqui://preview/${userId}`;
             
-            // Fallback zu bizzqui.com nach 2 Sekunden
             setTimeout(() => {
                 window.location.href = 'https://bizzqui.com';
             }, 2000);
         } else {
-            // Kein valider Parameter → direkt zu bizzqui.com
             window.location.href = 'https://bizzqui.com';
         }
-    </script>
+    }
+</script>
 </head>
 <body>
     <div class="container">
