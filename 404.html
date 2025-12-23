@@ -5,15 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIZZqui - Profil öffnen</title>
     
-    <!-- Universal Link Meta Tags -->
-    <meta property="al:ios:url" content="bizzqui://preview/">
-    <meta property="al:ios:app_store_id" content="6747759019">
-    <meta property="al:ios:app_name" content="BIZZqui">
-    <meta property="al:android:url" content="bizzqui://preview/">
-    <meta property="al:android:package" content="com.bizzqui.succession">
-    <meta property="al:android:app_name" content="BIZZqui">
-    
-    <!-- Open Graph Meta Tags für Link Preview -->
+    <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="BIZZqui">
     <meta property="og:title" content="Profil auf BIZZqui entdecken">
@@ -21,11 +13,19 @@
     <meta property="og:image" content="https://links.bizzqui.com/images/og-preview.png">
     <meta property="og:url" content="https://links.bizzqui.com">
     
-    <!-- Twitter Card (für Twitter/X) -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Profil auf BIZZqui entdecken">
     <meta name="twitter:description" content="Finde den passenden Nachfolger oder das richtige Unternehmen für deine Zukunft.">
     <meta name="twitter:image" content="https://links.bizzqui.com/images/og-preview.png">
+    
+    <!-- Universal Link Meta Tags -->
+    <meta property="al:ios:url" content="bizzqui://preview/">
+    <meta property="al:ios:app_store_id" content="6747759019">
+    <meta property="al:ios:app_name" content="BIZZqui">
+    <meta property="al:android:url" content="bizzqui://preview/">
+    <meta property="al:android:package" content="com.bizzqui.succession">
+    <meta property="al:android:app_name" content="BIZZqui">
     
     <style>
         body {
@@ -77,31 +77,30 @@
     </style>
     
     <script>
-    // Parameter aus URL extrahieren
-    const pathSegments = window.location.pathname.split('/').filter(s => s);
-    let userId = null;
-    
-    if (pathSegments[0] === 'preview' && pathSegments[1]) {
-        userId = pathSegments[1];
-    }
-    
-    // Debugging
-    console.log('Path:', window.location.pathname);
-    console.log('UserId:', userId);
-    
-    if (userId) {
-        // Versuch 1: Custom URI Scheme (funktioniert nur auf Mobile mit installierter App)
-        window.location.href = `bizzqui://preview/${userId}`;
-        
-        // Versuch 2: Fallback zu bizzqui.com nach 2 Sekunden
-        setTimeout(() => {
-            window.location.href = 'https://bizzqui.com';
-        }, 2000);
-    } else {
-        // Kein valider Parameter → direkt zu bizzqui.com
-        window.location.href = 'https://bizzqui.com';
-    }
-</script>
+        // NUR für echte Browser, NICHT für Crawler
+        if (!/bot|crawler|spider|crawling|linkedin|facebook|twitter|telegram|whatsapp/i.test(navigator.userAgent)) {
+            // Parameter aus URL extrahieren
+            const pathSegments = window.location.pathname.split('/').filter(s => s);
+            let userId = null;
+            
+            if (pathSegments[0] === 'preview' && pathSegments[1]) {
+                userId = pathSegments[1];
+            }
+            
+            console.log('Path:', window.location.pathname);
+            console.log('UserId:', userId);
+            
+            if (userId) {
+                window.location.href = `bizzqui://preview/${userId}`;
+                
+                setTimeout(() => {
+                    window.location.href = 'https://bizzqui.com';
+                }, 2000);
+            } else {
+                window.location.href = 'https://bizzqui.com';
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
