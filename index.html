@@ -1,21 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>BIZZqui</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIZZqui - Profil öffnen</title>
+    
+    <!-- Universal Link Meta Tags -->
+    <meta property="al:ios:url" content="bizzqui://preview/">
+    <meta property="al:ios:app_store_id" content="6747759019">
+    <meta property="al:ios:app_name" content="BIZZqui">
+    <meta property="al:android:url" content="bizzqui://preview/">
+    <meta property="al:android:package" content="com.bizzqui.succession">
+    <meta property="al:android:app_name" content="BIZZqui">
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+        p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .fallback-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+    </style>
+    
     <script>
-        // Versuche die App zu öffnen
-        window.location.href = 'nachfolgeapppush://nachfolgeappush';
+        // Parameter aus URL extrahieren
+        const pathSegments = window.location.pathname.split('/').filter(s => s);
+        let userId = null;
         
-        // Nach 2 Sekunden zu bizzqui.com weiterleiten (wenn App nicht öffnet)
-        setTimeout(function() {
+        if (pathSegments[0] === 'preview' && pathSegments[1]) {
+            userId = pathSegments[1];
+        }
+        
+        // Debugging
+        console.log('Path:', window.location.pathname);
+        console.log('UserId:', userId);
+        
+        if (userId) {
+            // Versuch 1: Universal Link (funktioniert auf iOS/Android mit installierter App)
+            window.location.href = `https://links.bizzqui.com/preview/${userId}`;
+            
+            // Versuch 2: Custom URI Scheme als Fallback (nach 500ms)
+            setTimeout(() => {
+                window.location.href = `bizzqui://preview/${userId}`;
+            }, 500);
+            
+            // Versuch 3: Fallback zu bizzqui.com (nach 2 Sekunden)
+            setTimeout(() => {
+                window.location.href = 'https://bizzqui.com';
+            }, 2000);
+        } else {
+            // Kein valider Parameter → direkt zu bizzqui.com
             window.location.href = 'https://bizzqui.com';
-        }, 2000);
+        }
     </script>
 </head>
 <body>
-    <h1>BIZZqui wird geöffnet...</h1>
-    <p>Falls die App nicht automatisch öffnet, wirst du zur Website weitergeleitet.</p>
+    <div class="container">
+        <h1>BIZZqui</h1>
+        <div class="spinner"></div>
+        <p>App wird geöffnet...</p>
+        <p style="font-size: 0.9em; opacity: 0.7;">Falls die App nicht automatisch öffnet, wirst du zur Website weitergeleitet.</p>
+        <a href="https://bizzqui.com" class="fallback-link">Zur Website</a>
+    </div>
 </body>
 </html>
