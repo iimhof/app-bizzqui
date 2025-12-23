@@ -77,36 +77,31 @@
     </style>
     
     <script>
-        // Parameter aus URL extrahieren
-        const pathSegments = window.location.pathname.split('/').filter(s => s);
-        let userId = null;
+    // Parameter aus URL extrahieren
+    const pathSegments = window.location.pathname.split('/').filter(s => s);
+    let userId = null;
+    
+    if (pathSegments[0] === 'preview' && pathSegments[1]) {
+        userId = pathSegments[1];
+    }
+    
+    // Debugging
+    console.log('Path:', window.location.pathname);
+    console.log('UserId:', userId);
+    
+    if (userId) {
+        // Versuch 1: Custom URI Scheme (funktioniert nur auf Mobile mit installierter App)
+        window.location.href = `bizzqui://preview/${userId}`;
         
-        if (pathSegments[0] === 'preview' && pathSegments[1]) {
-            userId = pathSegments[1];
-        }
-        
-        // Debugging
-        console.log('Path:', window.location.pathname);
-        console.log('UserId:', userId);
-        
-        if (userId) {
-            // Versuch 1: Universal Link (funktioniert auf iOS/Android mit installierter App)
-            window.location.href = `https://links.bizzqui.com/preview/${userId}`;
-            
-            // Versuch 2: Custom URI Scheme als Fallback (nach 500ms)
-            setTimeout(() => {
-                window.location.href = `bizzqui://preview/${userId}`;
-            }, 500);
-            
-            // Versuch 3: Fallback zu bizzqui.com (nach 2 Sekunden)
-            setTimeout(() => {
-                window.location.href = 'https://bizzqui.com';
-            }, 2000);
-        } else {
-            // Kein valider Parameter → direkt zu bizzqui.com
+        // Versuch 2: Fallback zu bizzqui.com nach 2 Sekunden
+        setTimeout(() => {
             window.location.href = 'https://bizzqui.com';
-        }
-    </script>
+        }, 2000);
+    } else {
+        // Kein valider Parameter → direkt zu bizzqui.com
+        window.location.href = 'https://bizzqui.com';
+    }
+</script>
 </head>
 <body>
     <div class="container">
