@@ -77,11 +77,10 @@
     </style>
     
     <script>
-       if (!/bot|crawler|spider|crawling|linkedin|facebook|twitter|telegram|whatsapp/i.test(navigator.userAgent)) {
+      if (!/bot|crawler|spider|crawling|linkedin|facebook|twitter|telegram|whatsapp/i.test(navigator.userAgent)) {
     const pathSegments = window.location.pathname.split('/').filter(s => s);
-    const hash = window.location.hash;
     
-    // NUR Preview Links redirecten zur App
+    // NUR Preview Links
     if (pathSegments[0] === 'preview' && pathSegments[1]) {
         const userId = pathSegments[1];
         window.location.href = `bizzqui://preview/${userId}`;
@@ -89,7 +88,10 @@
             window.location.href = 'https://bizzqui.com';
         }, 2000);
     }
-    // ALLES ANDERE: Nichts tun, im Browser bleiben
+    // Alles andere: Website
+    else {
+        window.location.href = 'https://bizzqui.com';
+    }
 }
     </script>
 </head>
