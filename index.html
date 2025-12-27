@@ -77,12 +77,11 @@
     </style>
     
     <script>
-        // NUR für echte Browser, NICHT für Crawler
-        if (!/bot|crawler|spider|crawling|linkedin|facebook|twitter|telegram|whatsapp/i.test(navigator.userAgent)) {
+       if (!/bot|crawler|spider|crawling|linkedin|facebook|twitter|telegram|whatsapp/i.test(navigator.userAgent)) {
     const pathSegments = window.location.pathname.split('/').filter(s => s);
     const hash = window.location.hash;
     
-    // Preview Links
+    // NUR Preview Links redirecten zur App
     if (pathSegments[0] === 'preview' && pathSegments[1]) {
         const userId = pathSegments[1];
         window.location.href = `bizzqui://preview/${userId}`;
@@ -90,15 +89,7 @@
             window.location.href = 'https://bizzqui.com';
         }, 2000);
     }
-    // Auth Callbacks - NICHT redirecten, Browser soll URL behalten
-    else if (pathSegments[0] === 'auth') {
-        // Nichts tun - Supabase braucht die URL mit Hash-Fragment
-        // Der Browser bleibt auf dieser Seite und FlutterFlow kann Token verarbeiten
-    }
-    // Alles andere → Fallback zur Website
-    else {
-        window.location.href = 'https://bizzqui.com';
-    }
+    // ALLES ANDERE: Nichts tun, im Browser bleiben
 }
     </script>
 </head>
