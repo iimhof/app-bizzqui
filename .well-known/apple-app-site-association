@@ -4,7 +4,7 @@
     "details": [
       {
         "appID": "9R27QD2RYW.com.bizzqui.succession",
-        "paths": ["/preview/*"]
+        "paths": ["*"]
       }
     ]
   }
