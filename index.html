@@ -77,13 +77,21 @@
     </style>
     
     <script>
-      if (!/bot|crawler|spider|crawling|linkedin|facebook|twitter|telegram|whatsapp/i.test(navigator.userAgent)) {
+  if (!/bot|crawler|spider|crawling|linkedin|facebook|twitter|telegram|whatsapp/i.test(navigator.userAgent)) {
     const pathSegments = window.location.pathname.split('/').filter(s => s);
     
-    // NUR Preview Links
+    // Preview Links: /preview/userId
     if (pathSegments[0] === 'preview' && pathSegments[1]) {
         const userId = pathSegments[1];
         window.location.href = `bizzqui://preview/${userId}`;
+        setTimeout(() => {
+            window.location.href = 'https://bizzqui.com';
+        }, 2000);
+    }
+    // Email Deep Links: /splashScreenEmail/parameter
+    else if (pathSegments[0] === 'splashScreenEmail' && pathSegments[1]) {
+        const parameter = pathSegments[1];
+        window.location.href = `bizzqui://splashScreenEmail/${parameter}`;
         setTimeout(() => {
             window.location.href = 'https://bizzqui.com';
         }, 2000);
@@ -92,8 +100,8 @@
     else {
         window.location.href = 'https://bizzqui.com';
     }
-}
-    </script>
+  }
+</script>
 </head>
 <body>
     <div class="container">
